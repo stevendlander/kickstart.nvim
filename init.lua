@@ -93,6 +93,9 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Tell Neovim where the dedicated Python venv lives
+vim.g.python3_host_prog = vim.fn.expand '~/.config/nvim/venv/bin/python'
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -415,6 +418,18 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
+        pickers = {
+          buffers = {
+            mappings = {
+              i = {
+                ['<C-z>'] = require('telescope.actions').delete_buffer,
+              },
+              n = {
+                ['dd'] = require('telescope.actions').delete_buffer,
+              },
+            },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -661,6 +676,18 @@ require('lazy').setup({
         },
       }
 
+      vim.diagnostic.config {
+        virtual_text = {
+          source = 'if_many',
+          prefix = '',
+          spacing = 4,
+          severity_sort = true,
+        },
+        float = {
+          source = 'always',
+        },
+      }
+
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -735,7 +762,7 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.enable(server_name)
           end,
         },
       }
@@ -1020,3 +1047,8 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.lsp.config['ruff'] = {
+  cmd = { 'ruff', 'server' },
+  filetypes = { 'python' },
+}
