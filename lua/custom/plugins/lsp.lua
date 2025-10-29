@@ -1,5 +1,21 @@
 -- Run ruff on python files
-vim.lsp.config['ruff'] = {
-  cmd = { 'ruff', 'server' },
-  filetypes = { 'python' },
+-- return {
+--   {
+--     'neovim/nvim-lspconfig',
+--     opts = {
+--       servers = {
+--         ruff = {
+--           cmd = { 'ruff', 'server' },
+--           filetypes = { 'python' },
+--         },
+--       },
+--     },
+--   },
+-- }
+
+return {
+  'neovim/nvim-lspconfig',
+  config = function()
+    vim.lsp.enable 'ruff'
+  end,
 }

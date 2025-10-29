@@ -34,6 +34,7 @@ local excluded_filetypes = {
 
 local excluded_filenames = {
   'do-not-autosave-me.lua',
+  '*.lua',
 }
 
 local function save_condition(buf)

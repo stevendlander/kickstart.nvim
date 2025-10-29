@@ -7,7 +7,8 @@ return {
   {
     'easymotion/vim-easymotion',
     config = function()
-      vim.keymap.set('n', '<leader>ef', '<Plug>(easymotion-overwin-f2)', { desc = '[E]asy Motion move [F]orward' })
+      -- vim.keymap.set('n', '<leader>ef', '<Plug>(easymotion-overwin-f2)', { desc = '[E]asy Motion move [F]orward' })
+      vim.keymap.set('n', '<leader>ef', '<Plug>(easymotion-overwin-f)', { desc = '[E]asy Motion move [F]orward' })
     end,
   },
 }
